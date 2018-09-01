@@ -12,11 +12,8 @@
     "target": "es6",
     "sourceMap": true,
     "allowJs": true,
-    "outDir": "./dist",
+		"outDir": "./dist",
 		"baseUrl": "./src",
-		"paths": {
-			"@insider-api/*": ["./src/*"]
-		},
 		"typeRoots": [
 			"node_modules/@types"
 		]
