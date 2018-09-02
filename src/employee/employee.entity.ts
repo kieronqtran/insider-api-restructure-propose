@@ -15,15 +15,10 @@ import {
 	UpdateDateColumn,
 } from 'typeorm';
 import { IsDate, IsEmail, IsUrl, IsEnum, IsIn, IsNotEmpty } from 'class-validator';
+import { AppBaseEntity } from '../common';
 
 @Entity('employee')
-export class Employee {
-	@PrimaryGeneratedColumn('increment', {
-		unsigned: true,
-		type: 'integer',
-		name: 'id',
-	})
-  id: number;
+export class Employee extends AppBaseEntity {
 
   @Column('varchar', {
     nullable: false,
@@ -90,6 +85,7 @@ export class Employee {
   deletedAt: Date | null;
 
   constructor(init?: Partial<Employee>) {
-    Object.assign(this, init);
+		super();
+		Object.assign(this, init);
   }
 }
