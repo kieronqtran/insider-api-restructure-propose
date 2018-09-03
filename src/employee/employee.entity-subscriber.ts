@@ -1,5 +1,5 @@
 import { EventSubscriber, EntitySubscriberInterface, InsertEvent, UpdateEvent, RemoveEvent } from 'typeorm';
-import { AbstractSubscriber } from '../common';
+import { AbstractSubscriber } from '@insider-api/common';
 import { Employee } from './employee.entity';
 
 @EventSubscriber()

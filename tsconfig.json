@@ -9,13 +9,17 @@
     "allowSyntheticDefaultImports": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es6",
+    "target": "es2015",
     "sourceMap": true,
     "allowJs": true,
 		"outDir": "./dist",
-		"baseUrl": "./src",
+    "baseUrl": "./src",
+    "paths": {
+      "@insider-api/*": ["*"]
+    },
 		"typeRoots": [
-			"node_modules/@types"
+      "src/typing",
+      "node_modules/@types"
 		]
   },
   "include": [

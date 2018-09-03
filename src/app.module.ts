@@ -1,8 +1,9 @@
 import { Module, NestModule, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from 'nestjs-config';
-import { EmployeeModule } from './employee';
-import { LogActivityModule, LogActivityMiddleware } from './log-activity';
+import { EmployeeModule } from '@insider-api/employee';
+import { LogActivityModule, LogActivityMiddleware } from '@insider-api/log-activity';
+import { AuthenticationModule } from './authentication/authentication.module';
 import * as path from 'path';
 
 ConfigService.load(path.resolve(__dirname, 'config/**/*.{ts,js}'));
@@ -17,10 +18,13 @@ ConfigService.load(path.resolve(__dirname, 'config/**/*.{ts,js}'));
     }),
     EmployeeModule,
     LogActivityModule,
+    AuthenticationModule,
   ],
 })
 export class AppModule implements NestModule {
 	configure(consumer: MiddlewareConsumer): void | MiddlewareConsumer {
-		consumer.apply(LogActivityMiddleware).forRoutes({ path: '*', method: RequestMethod.ALL });
+    consumer
+      .apply(LogActivityMiddleware)
+      .forRoutes({ path: '*', method: RequestMethod.ALL });
 	}
 }

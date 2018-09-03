@@ -1,12 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { LogActivityChangeContent } from './change-content.interface';
-
-// tslint:disable-next-line:no-var-requires
-const createNamespace = require('cls-hooked').createNamespace;
+import { createNamespace } from 'cls-hooked';
+import { Repository } from 'typeorm';
+import { LogActivityChangeContent } from './interface/change-content.interface';
+import { LogActivity } from './log-activity.entity';
 
 @Injectable()
 export class LogActivityService {
-	static globalNamespace = createNamespace('httpRequest');
+  static globalNamespace = createNamespace('httpRequest');
+
+  constructor(
+    private readonly logActivityRepository: Repository<LogActivity>,
+  ) {}
 
 	static addChangeContent(changeContent: LogActivityChangeContent) {
 		const changeContentsVar: LogActivityChangeContent[] = LogActivityService.globalNamespace.get('changeContents') || [];
@@ -21,7 +25,7 @@ export class LogActivityService {
 	insertLogActivity(log: {
 
 	}) {
-
+    this.logActivityRepository.create(log);
 	}
 }
 

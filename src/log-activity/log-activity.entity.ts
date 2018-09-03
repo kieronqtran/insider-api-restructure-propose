@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
-import { LogActivityChangeContent } from './change-content.interface';
+import { LogActivityChangeContent } from './interface/change-content.interface';
 
 @Entity()
 export class LogActivity {
@@ -26,10 +26,37 @@ export class LogActivity {
 	})
 	sourceId: number;
 
-	@Column('simple-array', {
+  @Column({
+    type: 'varchar',
+    name: 'source_agent',
+    nullable: false,
+  })
+  sourceAgent: string;
+
+  @Column({
+    type: 'varchar',
+    name: 'action',
+    nullable: false,
+  })
+  action: string;
+
+	@Column({
+    type: 'simple-array',
 		name: 'change_contents',
 	})
 	changeContents?: LogActivityChangeContent[];
+
+  @Column({
+    type: 'varchar',
+    length: 2048,
+    comment: 'Request Original URL',
+  })
+  original_url?: string;
+
+  @Column({
+    type: 'text',
+  })
+  requestBody?: object | object[];
 
 	@CreateDateColumn({
 		name: 'created_at',

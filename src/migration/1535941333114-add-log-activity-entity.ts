@@ -26,6 +26,12 @@ export class AddLogActivityEntity1535941333114 implements MigrationInterface {
 						isNullable: false,
 					},
 					{
+						name: 'source_agent',
+            type: 'VARCHAR',
+            length: '39',
+						isNullable: false,
+					},
+					{
 						name: 'change_contents',
 						type: 'TEXT',
 						isNullable: true,

@@ -67,20 +67,21 @@ export class Employee extends AppBaseEntity {
 	@CreateDateColumn({
 		name: 'created_at',
 		nullable: false,
-		// type: 'timestamp',
+		type: 'timestamp',
 		readonly: true,
 	})
   readonly createdAt: Date;
 
 	@UpdateDateColumn({
 		name: 'updated_at',
-		// type: 'timestamp',
+		type: 'timestamp',
 		readonly: true,
 	})
   readonly updatedAt: Date;
 
-  @Column('datetime', {
+  @Column({
     nullable: true,
+    type: 'datetime',
     name: 'deleted_at',
   })
   deletedAt: Date | null;

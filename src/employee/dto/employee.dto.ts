@@ -1,6 +1,6 @@
 import { IsDate, IsEmail, IsUrl, IsEnum, IsIn, IsNotEmpty } from 'class-validator';
 
-export class CreateEmployeeDto {
+export class EmployeeDto {
 	@IsNotEmpty()
   readonly code: string;
 

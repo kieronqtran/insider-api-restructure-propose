@@ -6,7 +6,9 @@ import { LogActivityService } from './log-activity.service';
 @Injectable()
 export class LogActivityMiddleware implements NestMiddleware {
 
-	constructor(private readonly logActivityService: LogActivityService) {}
+  constructor(
+    private readonly logActivityService: LogActivityService,
+  ) {}
 
   resolve(...args: any[]): MiddlewareFunction {
     return (req: Request, res: Response, next: NextFunction) => {
