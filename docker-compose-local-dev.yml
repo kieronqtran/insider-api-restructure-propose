@@ -1,7 +1,7 @@
 version: '3'
 services:
 
-  mysql:
+  mariadb:
     image: "mariadb:10"
     ports:
       - "3306:3306"

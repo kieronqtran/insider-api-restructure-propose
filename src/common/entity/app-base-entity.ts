@@ -1,4 +1,5 @@
 import { PrimaryGeneratedColumn } from 'typeorm';
+import { IsNumber } from 'class-validator';
 
 export abstract class AppBaseEntity {
 	@PrimaryGeneratedColumn('increment', {
@@ -6,5 +7,6 @@ export abstract class AppBaseEntity {
 		type: 'integer',
 		name: 'id',
 	})
+	@IsNumber()
   id: number;
 }

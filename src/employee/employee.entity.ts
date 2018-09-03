@@ -58,7 +58,7 @@ export class Employee extends AppBaseEntity {
   @Column('enum', {
     nullable: false,
     enum: ['working', 'joining', 'resigned'],
-    name: 'status',
+		name: 'status',
 	})
 	@IsIn(['working', 'joining', 'resigned'])
 	@IsNotEmpty()
@@ -67,13 +67,14 @@ export class Employee extends AppBaseEntity {
 	@CreateDateColumn({
 		name: 'created_at',
 		nullable: false,
-		type: 'timestamp',
+		// type: 'timestamp',
+		readonly: true,
 	})
   readonly createdAt: Date;
 
 	@UpdateDateColumn({
 		name: 'updated_at',
-		type: 'timestamp',
+		// type: 'timestamp',
 		readonly: true,
 	})
   readonly updatedAt: Date;

@@ -1,17 +1,8 @@
 import { EventSubscriber, EntitySubscriberInterface, InsertEvent, UpdateEvent, RemoveEvent, ObjectLiteral } from 'typeorm';
 import { getNamespace } from 'continuation-local-storage';
 import { snake } from 'change-case';
-import { globalNamespace } from '../log-activity/log-activity.middleware';
-import { AppBaseEntity } from './app-base-entity';
-
-interface LogActivityChangeContent {
-	tableName: string;
-	queryType: 'insert' | 'update' | 'delete';
-	rowId: number | number[];
-	attributes: ObjectLiteral;
-}
-
-type LogActivityChangeContents = LogActivityChangeContent[];
+import { LogActivityService, LogActivityChangeContent } from '../../log-activity';
+import { AppBaseEntity } from '../entity/app-base-entity';
 
 export abstract class AbstractSubscriber<Entity extends AppBaseEntity> implements EntitySubscriberInterface<Entity> {
 
@@ -27,8 +18,6 @@ export abstract class AbstractSubscriber<Entity extends AppBaseEntity> implement
 		}
 
     async afterInsert(event: InsertEvent<Entity>): Promise<void> {
-			const httpNamespace = globalNamespace;
-			const changeContentsVar: LogActivityChangeContents = httpNamespace.get('changeContents') || [];
 			const changeContent: LogActivityChangeContent = {
 				tableName: snake(this.listenTo().name),
 				queryType: 'insert',
@@ -38,8 +27,7 @@ export abstract class AbstractSubscriber<Entity extends AppBaseEntity> implement
 					return pre;
 				} , {}),
 			};
-			changeContentsVar.push(changeContent);
-			httpNamespace.set('changeContents', changeContentsVar);
+			LogActivityService.addChangeContent(changeContent);
 		}
 
     async beforeUpdate?(event: UpdateEvent<Entity>): Promise<void> {
