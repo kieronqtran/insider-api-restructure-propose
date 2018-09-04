@@ -1,4 +1,7 @@
 import { Module } from '@nestjs/common';
+import { HttpStrategyService } from './http-strategy.service';
 
-@Module({})
+@Module({
+  providers: [HttpStrategyService],
+})
 export class AuthenticationModule {}

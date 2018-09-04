@@ -3,13 +3,14 @@ import { createNamespace } from 'cls-hooked';
 import { Repository } from 'typeorm';
 import { LogActivityChangeContent } from './interface/change-content.interface';
 import { LogActivity } from './log-activity.entity';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class LogActivityService {
   static globalNamespace = createNamespace('httpRequest');
 
   constructor(
-    private readonly logActivityRepository: Repository<LogActivity>,
+    @InjectRepository(LogActivity) private readonly logActivityRepository: Repository<LogActivity>,
   ) {}
 
 	static addChangeContent(changeContent: LogActivityChangeContent) {

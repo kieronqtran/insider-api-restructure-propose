@@ -1,6 +1,11 @@
 
 declare namespace Express {
   export interface Request {
-    auth: {}
+    readonly user: {
+      email: string;
+      name: string;
+      permissions: string[];
+      aud: string;
+    }
   }
 }

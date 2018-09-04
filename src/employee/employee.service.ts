@@ -12,6 +12,7 @@ export class EmployeeService {
   ) {}
 
   async create(entity: EmployeeDto) {
-		await this.employeeRepository.save(entity);
+    const employee = new Employee(entity);
+    const result = await this.employeeRepository.save(employee);
 	}
 }

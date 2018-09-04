@@ -1,15 +1,30 @@
 import { Module, NestModule, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from 'nestjs-config';
+import { Routes, RouterModule } from 'nest-router';
+import { APP_GUARD } from '@nestjs/core';
 import { EmployeeModule } from '@insider-api/employee';
 import { LogActivityModule, LogActivityMiddleware } from '@insider-api/log-activity';
-import { AuthenticationModule } from './authentication/authentication.module';
+import { PermissionGuard } from '@insider-api/common';
+import { AuthenticationModule } from '@insider-api/authentication';
 import * as path from 'path';
 
 ConfigService.load(path.resolve(__dirname, 'config/**/*.{ts,js}'));
 
+const routes: Routes = [
+  {
+    path: '/employee',
+    module: EmployeeModule,
+  },
+  {
+    path: '/auth',
+    module: AuthenticationModule,
+  },
+];
+
 @Module({
   imports: [
+    RouterModule.forRoutes(routes),
     ConfigModule.load(),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -19,6 +34,12 @@ ConfigService.load(path.resolve(__dirname, 'config/**/*.{ts,js}'));
     EmployeeModule,
     LogActivityModule,
     AuthenticationModule,
+  ],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: PermissionGuard,
+    },
   ],
 })
 export class AppModule implements NestModule {

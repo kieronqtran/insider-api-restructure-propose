@@ -4,7 +4,10 @@
     "declaration": false,
     "noImplicitAny": false,
     "removeComments": true,
-		"noLib": false,
+    "noLib": false,
+    "lib": [
+      "es2016"
+    ],
 		"moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "emitDecoratorMetadata": true,
@@ -18,7 +21,7 @@
       "@insider-api/*": ["*"]
     },
 		"typeRoots": [
-      "src/typing",
+      "src/@types",
       "node_modules/@types"
 		]
   },
